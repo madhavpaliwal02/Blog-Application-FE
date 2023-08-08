@@ -1,7 +1,10 @@
+import MyNavbar from "./MyNavbar";
+
 const Base = ({ title = "Welcome to our website", children }) => {
     return (
         <div className="container-fluid">
-            <h1>This is Header</h1>
+            {/* <h1>This is Header</h1> */}
+            <MyNavbar />
             {children}
             <h1>This is Footer</h1>
         </div>

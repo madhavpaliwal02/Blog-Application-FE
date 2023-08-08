@@ -1,10 +1,13 @@
 import React from 'react'
+import Base from '../components/Base'
 
 const Signup = () => {
     return (
-        <div>
-            <h1>Signup</h1>
-        </div>
+        <Base>
+            <div>
+                <h1>Signup</h1>
+            </div>
+        </Base>
     )
 }
 

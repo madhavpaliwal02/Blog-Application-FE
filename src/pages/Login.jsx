@@ -1,10 +1,13 @@
 import React from 'react'
+import Base from '../components/Base'
 
 const Login = () => {
     return (
-        <div>
-            <h1>This is login page</h1>
-        </div>
+        <Base>
+            <div>
+                <h1>This is login page</h1>
+            </div>
+        </Base>
     )
 }
 
