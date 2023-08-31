@@ -1,8 +1,72 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Base from '../components/Base'
-import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
+import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
+import axios from 'axios'
+import { user_api } from '../api/API'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
+
+    // User
+    const [user, setUser] = useState({
+        name: '',
+        email: '',
+        password: '',
+        about: '',
+    })
+
+    // Error
+    const [error, setError] = useState({
+        errors: {},
+        isError: false,
+    });
+
+    // Navigation
+    const nav = useNavigate()
+
+    // Handle Change
+    const handleChange = (event) => {
+        const { name, value } = event.target
+        setUser({ ...user, [name]: value })
+    }
+
+    // Handle reset
+    const handleReset = () => {
+        setUser({
+            name: '',
+            email: '',
+            password: '',
+            about: ''
+        })
+    }
+
+    // Handle Submit
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        // call server api
+        axios.post(`${user_api}`, user).then(
+            (response) => {
+                console.log("response: ", response.data)
+                toast.success("User registered with userId: ", response.data.id, { position: "top-right" })
+                nav("/login")
+            })
+            .catch((err) => {
+                console.log("something went wrong... Error: ", err)
+                setError({
+                    errors: err,
+                    isError: true
+                })
+                toast.error("Something went wrong ! Please try again", { position: "top-right" })
+            })
+    }
+
+    useEffect(() => {
+        // console.log("user: ", user)
+        toast.success("Hello Palak", { position: "top-right" })
+    }, [Signup])
+
     return (
         <Base>
             <Container>
@@ -19,7 +83,7 @@ const Signup = () => {
                             <CardBody>
 
                                 {/* Sign Up Form */}
-                                <Form>
+                                <Form onSubmit={handleSubmit}>
                                     {/* Name */}
                                     <FormGroup>
                                         <Label for='name' >Enter Name</Label>
@@ -28,7 +92,13 @@ const Signup = () => {
                                             name='name'
                                             type='text'
                                             placeholder='Enter here...'
+                                            onChange={handleChange}
+                                            value={user.name}
+                                            invalid={error.errors?.response?.data?.name ? true : false}
                                         />
+                                        <FormFeedback>
+                                            {error.errors?.response?.data?.name}
+                                        </FormFeedback>
                                     </FormGroup>
                                     {/* Email */}
                                     <FormGroup>
@@ -36,9 +106,15 @@ const Signup = () => {
                                         <Input
                                             id='email'
                                             name='email'
-                                            type='email'
+                                            type='text'
                                             placeholder='Enter here...'
+                                            onChange={handleChange}
+                                            value={user.email}
+                                            invalid={error.errors?.response?.data?.email ? true : false}
                                         />
+                                        <FormFeedback>
+                                            {error.errors?.response?.data?.email}
+                                        </FormFeedback>
                                     </FormGroup>
                                     {/* Password */}
                                     <FormGroup>
@@ -48,7 +124,13 @@ const Signup = () => {
                                             name='password'
                                             type='password'
                                             placeholder='Enter here...'
+                                            onChange={handleChange}
+                                            value={user.password}
+                                            invalid={error.errors?.response?.data?.password ? true : false}
                                         />
+                                        <FormFeedback>
+                                            {error.errors?.response?.data?.password}
+                                        </FormFeedback>
                                     </FormGroup>
                                     {/* About */}
                                     <FormGroup>
@@ -58,12 +140,18 @@ const Signup = () => {
                                             name='about'
                                             type='textarea'
                                             placeholder='Enter here...'
+                                            onChange={handleChange}
+                                            value={user.about}
+                                            invalid={error.errors?.response?.data?.about ? true : false}
                                         />
+                                        <FormFeedback>
+                                            {error.errors?.response?.data?.about}
+                                        </FormFeedback>
                                     </FormGroup>
 
                                     <Container className='text-center'>
-                                        <Button type='' color='info'>Submit</Button>
-                                        <Button type='reset' color='info' className='ms-3'>Reset</Button>
+                                        <Button type='submit' color='info'>Submit</Button>
+                                        <Button onClick={handleReset} color='info' className='ms-3'>Reset</Button>
                                     </Container>
                                 </Form>
 
