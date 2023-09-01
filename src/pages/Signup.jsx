@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Base from '../components/Base'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
-import axios from 'axios'
-import { user_api } from '../api/API'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { user_api } from '../services/API'
 
 const Signup = () => {
 
@@ -49,7 +49,7 @@ const Signup = () => {
         axios.post(`${user_api}`, user).then(
             (response) => {
                 console.log("response: ", response.data)
-                toast.success("User registered with userId: ", response.data.id, { position: "top-right" })
+                toast.success("User registered with userId: " + response.data?.id, { position: "top-right" })
                 nav("/login")
             })
             .catch((err) => {
@@ -58,7 +58,8 @@ const Signup = () => {
                     errors: err,
                     isError: true
                 })
-                toast.error("Something went wrong ! Please try again", { position: "top-right" })
+                toast.error(err.response?.data?.message, { position: "top-right" })
+                // console.log(err.response?.data?.message)
             })
     }
 
