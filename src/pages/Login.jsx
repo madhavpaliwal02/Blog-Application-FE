@@ -5,6 +5,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { user_api } from '../services/API'
 import { doLogin } from '../auth'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
@@ -13,6 +14,9 @@ const Login = () => {
         email: '',
         password: '',
     })
+
+    // useNavigate
+    const nav = useNavigate()
 
     // Handle Change : Form
     const handleChange = (event) => {
@@ -23,21 +27,25 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
+        // Validating the data
         if (loginDetail.email == '' || loginDetail.password == '') {
             toast.error("Email & Password is required...", { position: "top-right" })
             return
         }
 
+        // Server call : login
         axios.post(`${user_api}login`, loginDetail).then(
             (response) => {
-                // console.log("Response ", response.data?.message)
-                doLogin(response, () => {
-                    console.log("Data is saved in local storage")
-                })
+                console.log("Response ", response.data?.message)
+                // Saving in Local Storage                                                                                                                                                                                                                                              
+                // doLogin(response, () => {
+                //     console.log("Data is saved in local storage")
+                nav("/user/dashboard")
+                // })
                 toast.success(response.data?.message, { position: "top-right" })
             }
         ).catch((error) => {
-            // console.log("Error ", error.response?.data?.message)
+            console.log("Error ", error.response?.data?.message)
             toast.error(error.response?.data?.message, { position: "top-right" })
         })
     }

@@ -1,6 +1,5 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Base from './components/Base';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -16,9 +15,6 @@ import ProfileInfo from './pages/user-routes/ProfileInfo';
 
 function App() {
   return (
-    // <Base>
-    //   <h1>This is Home Page</h1>
-    // </Base>
     <BrowserRouter>
       <ToastContainer />
       <Routes>
