@@ -28,7 +28,7 @@ const Login = () => {
         e.preventDefault()
 
         // Validating the data
-        if (loginDetail.email == '' || loginDetail.password == '') {
+        if (loginDetail.email === '' || loginDetail.password === '') {
             toast.error("Email & Password is required...", { position: "top-right" })
             return
         }
@@ -38,10 +38,11 @@ const Login = () => {
             (response) => {
                 console.log("Response ", response.data?.message)
                 // Saving in Local Storage                                                                                                                                                                                                                                              
-                // doLogin(response, () => {
-                //     console.log("Data is saved in local storage")
-                nav("/user/dashboard")
-                // })
+                doLogin(response.data, () => {
+                    console.log("Data is saved in local storage")
+                    console.log("Api Fetched", response.data)
+                    nav("/user/dashboard")
+                })
                 toast.success(response.data?.message, { position: "top-right" })
             }
         ).catch((error) => {

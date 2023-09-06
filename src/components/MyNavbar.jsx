@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { NavLink as ReactLink, useNavigate } from 'react-router-dom'
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink,
-    UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText
+    UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
-import { doLogout, isLoggedIn } from '../auth';
+import { doLogout, getCurrUser, isLoggedIn } from '../auth';
 
 const MyNavbar = () => {
 
@@ -16,23 +16,26 @@ const MyNavbar = () => {
 
     // useState : User
     const [user, setUser] = useState(undefined)
+    // const [email, setEmail] = useState(undefined)
 
     // useNavigate
     const nav = useNavigate()
 
     // Handle Logout
     const handleLogout = () => {
-        // doLogout(() => {
-        //     setLogin(false)
-        nav("/login")
-        // })
+        doLogout(() => {
+            setLogin(false)
+            nav("/login")
+        })
     }
 
     // useEffect
     useEffect(() => {
-        // setLogin(isLoggedIn)
+        setLogin(isLoggedIn())
+        setUser(getCurrUser())
+        console.log("user:::", user)
         // setLogin(false)
-        setLogin(true)
+        // setLogin(true)
     }, [login])
 
 
@@ -80,7 +83,7 @@ const MyNavbar = () => {
                                         <NavLink tag={ReactLink} to="/user/profile-info">Profile-Info</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink tag={ReactLink} to="/user/dashboard">palak@gmail.com</NavLink>
+                                        <NavLink tag={ReactLink} to="/user/dashboard">{user.email}</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink onClick={handleLogout}>Logout</NavLink>
