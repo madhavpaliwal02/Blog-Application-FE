@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import Base from '../components/Base'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
-import axios from 'axios'
 import { toast } from 'react-toastify'
-import { user_api } from '../services/API'
 import { doLogin } from '../auth'
 import { useNavigate } from 'react-router-dom'
+import { loginUser } from '../services/user-service'
 
 const Login = () => {
 
@@ -34,20 +33,21 @@ const Login = () => {
         }
 
         // Server call : login
-        axios.post(`${user_api}login`, loginDetail).then(
+        // axios.post('http://localhost:9191/auth/login', loginDetail).then(
+        loginUser(loginDetail).then(
             (response) => {
-                console.log("Response ", response.data?.message)
+                console.log("Response ", response)
                 // Saving in Local Storage                                                                                                                                                                                                                                              
-                doLogin(response.data, () => {
+                doLogin(response, () => {
                     console.log("Data is saved in local storage")
-                    console.log("Api Fetched", response.data)
+                    console.log("Api Fetched", response)
                     nav("/user/dashboard")
                 })
-                toast.success(response.data?.message, { position: "top-right" })
+                toast.success("Welcome ! " + response?.user.name, { position: "top-right" })
             }
         ).catch((error) => {
-            console.log("Error ", error.response?.data?.message)
-            toast.error(error.response?.data?.message, { position: "top-right" })
+            console.log("Error ", error.response?.message)
+            toast.error(error.response?.message, { position: "top-right" })
         })
     }
 
@@ -71,7 +71,7 @@ const Login = () => {
                                         <Input
                                             id='email'
                                             name='email'
-                                            type='email'
+                                            type='text'
                                             placeholder='Enter here'
                                             onChange={handleChange}
                                         />

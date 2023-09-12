@@ -16,7 +16,6 @@ const MyNavbar = () => {
 
     // useState : User
     const [user, setUser] = useState(undefined)
-    // const [email, setEmail] = useState(undefined)
 
     // useNavigate
     const nav = useNavigate()
@@ -83,7 +82,7 @@ const MyNavbar = () => {
                                         <NavLink tag={ReactLink} to="/user/profile-info">Profile-Info</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink tag={ReactLink} to="/user/dashboard">{user.email}</NavLink>
+                                        <NavLink tag={ReactLink} to="/user/dashboard">{user?.name}</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink onClick={handleLogout}>Logout</NavLink>

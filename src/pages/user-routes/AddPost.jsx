@@ -1,10 +1,10 @@
-import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Card, CardBody, Container, Form, Input, Label } from 'reactstrap'
-import { category_api, post_api } from '../../services/API'
 import JoditEditor from 'jodit-react'
 import { toast } from 'react-toastify'
 import { getCurrUser } from '../../auth'
+import { loadAllCategories } from '../../services/category-service'
+import { addPost } from '../../services/post-service'
 
 const AddPost = () => {
 
@@ -12,7 +12,7 @@ const AddPost = () => {
     const [categories, setCategories] = useState([])
 
     // useState : User
-    const [user, setUser] = useState('')
+    // const [user, setUser] = useState('')
 
     // useState : Jodit React
     const editor = useRef(null)
@@ -21,37 +21,39 @@ const AddPost = () => {
     const [post, setPost] = useState({
         title: '',
         content: '',
-        categoryId: ''
+        categoryId: '',
+        userId: ''
     })
 
     // handleChange
     const handleChange = (event) => {
         setPost({ ...post, [event.target.name]: event.target.value })
-        console.log(post)
     }
 
-    // handleChangeConten
-    const handleChangeConten = (data) => {
+    // handleChangeContent
+    const handleChangeContent = (data) => {
         setPost({ ...post, 'content': data })
     }
 
     // useEffect
     useEffect(() => {
         getCategoriesHandler()
-        setUser(getCurrUser())
+        post['userId'] = getCurrUser().id
     }, [])
 
 
 
-    // Getting all categories
+    // Server Call : Getting all categories
     const getCategoriesHandler = () => {
         // Api Call
-        axios.get(`${category_api}`).then(
+        // axios.get(`${category_api}`).then(
+        loadAllCategories().then(
             (response) => {
-                setCategories(response.data)
+                setCategories(response)
                 // console.log(response.data, categories)
             }
         ).catch((error) => {
+            toast.error(error.response?.data, { position: "top-right" })
             console.log(error)
         })
     }
@@ -73,24 +75,32 @@ const AddPost = () => {
             return
         }
 
-        console.log(post)
+        // Url generate
+        const url = `/api/user/${post.userId}/category/${post.categoryId}/posts`
+        // console.log("url ", url)
 
-        // Call Server API
-        console.log("user-id", user)
-        const url = `${post_api}user/${user.id}/category/${post.categoryId}/posts`
-        console.log("url ", url)
-        axios.post(url, post).then(
+        // Server Call : Add Post
+        // axios.post(url, postObj).then(
+        addPost(url, post).then(
             (response) => {
-                console.log(response.data)
-                toast.success("Post Added Successfully", { position: "top-right" })
+                console.log(response)
+                toast.success("Post Created Successfully", { position: "top-right" })
+                handleResetPost()
             }
         ).catch((error) => {
             console.log(error)
-            // toast.error("Something went wrong !!", { position: "top-right" })
             toast.error(error.response?.data?.message, { position: "top-right" })
         })
     }
 
+    // Handler Reset Post
+    const handleResetPost = () => {
+        setPost({
+            title: '',
+            categoryId: '',
+        })
+        handleChangeContent('')
+    }
 
 
     return (
@@ -113,7 +123,7 @@ const AddPost = () => {
                             <JoditEditor
                                 ref={editor}
                                 value={post.content}
-                                onChange={handleChangeConten}
+                                onChange={handleChangeContent}
                             />
                         </div>
 
