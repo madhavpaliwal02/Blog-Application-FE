@@ -6,7 +6,7 @@ const Base = ({ title = "Welcome to our website", children }) => {
             {/* <h1>This is Header</h1> */}
             <MyNavbar />
             {children}
-            <h1>This is Footer</h1>
+            <h4>This is Footer</h4>
         </div>
     )
 }
