@@ -11,6 +11,7 @@ import UserDashboard from './pages/user-routes/UserDashboard';
 import PrivateRoute from './components/PrivateRoute';
 import ProfileInfo from './pages/user-routes/ProfileInfo';
 import PostPage from './pages/post-routes/PostPage';
+import PostCategory from './pages/post-routes/PostCategory';
 // import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/services' element={<Services />} />
         <Route path='/post/:postId' element={<PostPage />} />
+        <Route path='/category/:categoryId' element={<PostCategory />} />
 
 
         <Route path='/user' element={<PrivateRoute />}>

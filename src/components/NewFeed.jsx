@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Container, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap'
+import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from 'reactstrap'
 import Post from './Post'
-import { loadAllPostsService } from '../services/post-service'
+import { loadAllPostsService, loadPostsByCategory } from '../services/post-service'
 import { toast } from 'react-toastify'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { loadAllCategories } from '../services/category-service'
 
 const NewFeed = () => {
 
@@ -26,6 +27,7 @@ const NewFeed = () => {
             (postContent.pageNumber > pageNumber && postContent.pageNumber == 0))
             return;
 
+        // Server Call
         loadAllPostsService(pageNumber, pageSize).then(
             (response) => {
                 console.log(response)
@@ -37,7 +39,7 @@ const NewFeed = () => {
                     pageNumber: response.pageNumber,
                     lastPage: response.lastPage
                 })
-                window.scroll(0, 0)
+                // window.scroll(0, 0)
             }
         ).catch((error) => {
             console.log("Error ", error)
@@ -51,11 +53,6 @@ const NewFeed = () => {
         console.log("Post content :", postContent.content)
     }, [currentPage])
 
-    // Handle Pagination
-    const handlePagination = (index) => {
-        loadAllPosts(index)
-    }
-
     // Handle Change Page Infinity
     const changedPageInfinity = () => {
         console.log("Page Changed")
@@ -65,17 +62,15 @@ const NewFeed = () => {
     return (
         <div className='container-fluid'>
             <Row>
-                <Col md={{
-                    size: 10,
-                    offset: 1
-                }}
-                >
+                <Col md={{ size: 12 }}>
+                    {/* New Feeds Header */}
                     <h1>Blogs Count : ({postContent?.totalElements})</h1>
 
+                    {/* Infinite Scroll */}
                     <InfiniteScroll
-                        dataLength={postContent.content.length}
+                        dataLength={postContent.content?.length}
                         next={changedPageInfinity}
-                        hasMore={!postContent.lastPage}
+                        hasMore={!postContent?.lastPage}
                         loader={<h4>Loading...</h4>}
                         endMessage={
                             <p style={{ textAlign: 'center' }}>
@@ -89,42 +84,6 @@ const NewFeed = () => {
                             ))
                         }
                     </InfiniteScroll>
-
-
-                    {/* <Container className='mt-3'>
-
-                        <Pagination>
-                            <PaginationItem
-                                disabled={postContent.pageNumber == 0}
-                                onClick={() => handlePagination(postContent.pageNumber - 1)}
-                            >
-                                <PaginationLink previous>Prev</PaginationLink>
-                            </PaginationItem>
-
-                            {
-                                [...Array(postContent.totalPages)].map((item, index) => (
-
-                                    <PaginationItem
-                                        key={index}
-                                        active={postContent.pageNumber == index}
-                                        onClick={() => handlePagination(index)}
-                                    >
-                                        <PaginationLink>
-                                            {index + 1}
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                ))
-                            }
-
-                            <PaginationItem
-                                disabled={postContent.lastPage}
-                                onClick={() => handlePagination(postContent.pageNumber + 1)}
-                            >
-                                <PaginationLink next>Next</PaginationLink>
-                            </PaginationItem>
-                        </Pagination>
-
-                    </Container> */}
                 </Col>
             </Row>
         </div>

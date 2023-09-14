@@ -26,3 +26,8 @@ export const postImageService = async (image, postId) => {
     })
     return response.data
 }
+
+export const loadPostsByCategory = async (catId, pageNumber, pageSize) => {
+    const response = await privateAxios.get(`/api/category/${catId}/posts?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=addedDate&sortDir=desc`)
+    return response.data
+}
