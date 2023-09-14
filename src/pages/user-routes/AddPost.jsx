@@ -4,7 +4,7 @@ import JoditEditor from 'jodit-react'
 import { toast } from 'react-toastify'
 import { getCurrUser } from '../../auth'
 import { loadAllCategories } from '../../services/category-service'
-import { addPost } from '../../services/post-service'
+import { addPost, postImageService } from '../../services/post-service'
 
 const AddPost = () => {
 
@@ -12,7 +12,7 @@ const AddPost = () => {
     const [categories, setCategories] = useState([])
 
     // useState : User
-    // const [user, setUser] = useState('')
+    const [image, setImage] = useState(null)
 
     // useState : Jodit React
     const editor = useRef(null)
@@ -21,8 +21,9 @@ const AddPost = () => {
     const [post, setPost] = useState({
         title: '',
         content: '',
-        categoryId: '',
-        userId: ''
+        categoryId: 0,
+        userId: 0,
+        postId: 0
     })
 
     // handleChange
@@ -33,6 +34,12 @@ const AddPost = () => {
     // handleChangeContent
     const handleChangeContent = (data) => {
         setPost({ ...post, 'content': data })
+    }
+
+    // handle Change image
+    const handleFileChange = (event) => {
+        setImage(event.target.files[0])
+        console.log("image", image)
     }
 
     // useEffect
@@ -80,12 +87,12 @@ const AddPost = () => {
         // console.log("url ", url)
 
         // Server Call : Add Post
-        // axios.post(url, postObj).then(
         addPost(url, post).then(
             (response) => {
                 console.log(response)
                 toast.success("Post Created Successfully", { position: "top-right" })
-                handleResetPost()
+                addImage(image, response.postId)
+                // window.location.reload()
             }
         ).catch((error) => {
             console.log(error)
@@ -93,13 +100,17 @@ const AddPost = () => {
         })
     }
 
-    // Handler Reset Post
-    const handleResetPost = () => {
-        setPost({
-            title: '',
-            categoryId: '',
+    // Server Call : Add Image 
+    const addImage = (file, postId) => {
+        postImageService(file, postId).then(
+            (response) => {
+                console.log(response)
+                console.log("Image Successfully Added")
+            }
+        ).catch(error => {
+            console.log("Error", error)
+            toast.error(error.response?.message, { position: "top-right" })
         })
-        handleChangeContent('')
     }
 
 
@@ -125,6 +136,12 @@ const AddPost = () => {
                                 value={post.content}
                                 onChange={handleChangeContent}
                             />
+                        </div>
+
+                        {/* Post Image */}
+                        <div className="my-3">
+                            <Label for='image'>Post Image</Label>
+                            <Input id='image' type='file' onChange={handleFileChange} />
                         </div>
 
                         {/* Post Category */}
