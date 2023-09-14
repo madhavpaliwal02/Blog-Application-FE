@@ -3,8 +3,6 @@ import Base from '../components/Base'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { user_api } from '../services/API'
 import { signupUser } from '../services/user-service'
 
 const Signup = () => {
@@ -48,7 +46,7 @@ const Signup = () => {
 
         // call server api
         // axios.post(`${user_api}`, user).then(
-            signupUser(user).then(
+        signupUser(user).then(
             (response) => {
                 console.log("response: ", response.data)
                 toast.success("User registered with userId: " + response.data?.id, { position: "top-right" })

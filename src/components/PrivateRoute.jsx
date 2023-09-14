@@ -7,8 +7,8 @@ const PrivateRoute = () => {
     let loggedIn = true
 
     // loggedIn function from auth/index.js file
-    return loggedIn ? <Outlet /> : <Navigate to={"/login"} />
-    // return isLoggedIn() ? <Outlet /> : <Navigate to={"/login"} />
+    // return loggedIn ? <Outlet /> : <Navigate to={"/login"} />
+    return isLoggedIn() ? <Outlet /> : <Navigate to={"/login"} />
 
     // return (
     //     <>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Card, CardBody, CardText } from 'reactstrap'
 
 const Post = ({ post = { title: "This is default Title", content: "This is default content" } }) => {
@@ -12,7 +13,7 @@ const Post = ({ post = { title: "This is default Title", content: "This is defau
                     {/* {post.content.substring(0, 50)}... */}
                 </CardText>
 
-                <Button>Read More</Button>
+                <Link to={'/post/' + post.postId} className='btn btn-primary'>Read More</Link>
             </CardBody>
         </Card>
     )
