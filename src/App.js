@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute';
 import ProfileInfo from './pages/user-routes/ProfileInfo';
 import PostPage from './pages/post-routes/PostPage';
 import PostCategory from './pages/post-routes/PostCategory';
+import UpdatePost from './components/UpdatePost';
 // import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/user' element={<PrivateRoute />}>
           <Route path='dashboard' element={<UserDashboard />} />
           <Route path='profile-info' element={<ProfileInfo />} />
+          <Route path='update-post/:postId' element={<UpdatePost />} />
         </Route>
       </Routes>
     </BrowserRouter>

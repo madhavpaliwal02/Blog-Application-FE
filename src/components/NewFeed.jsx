@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Col, DropdownItem, DropdownMenu, DropdownToggle, Row, UncontrolledDropdown } from 'reactstrap'
+import { Col, Row } from 'reactstrap'
 import Post from './Post'
-import { loadAllPostsService, loadPostsByCategory } from '../services/post-service'
+import { deletePostById, loadAllPostsService } from '../services/post-service'
 import { toast } from 'react-toastify'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { loadAllCategories } from '../services/category-service'
+import { useNavigate } from 'react-router-dom'
 
 const NewFeed = () => {
+
+    // useNavigate
+    const nav = useNavigate()
 
     // Use State : PostContent
     const [postContent, setPostContent] = useState({
@@ -59,6 +62,31 @@ const NewFeed = () => {
         setCurrentPage(currentPage + 1)
     }
 
+    // Delete Post
+    const deletePost = (post) => {
+        let del = window.confirm("Are you sure ?")
+        if (!del) {
+            return;
+        }
+
+        deletePostById(post.postId).then(
+            response => {
+                console.log("Deleted  ", response)
+                toast.success(response?.message, { position: "top-right" })
+                let updatedPosts = postContent.content.filter(p => p.postId != post.postId)
+                setPostContent({ ...postContent, content: updatedPosts })
+            }
+        ).catch(error => {
+            toast.error(error.response?.message, { position: "top-right" })
+        })
+    }
+
+    // Update Post
+    const updatePost = (post) => {
+        console.log(post)
+        nav("/user/update-post/" + post.postId)
+    }
+
     return (
         <div className='container-fluid'>
             <Row>
@@ -80,7 +108,10 @@ const NewFeed = () => {
                     >
                         {
                             postContent.content.map((post) => (
-                                <Post post={post} key={post.postId} />
+                                <Post post={post} key={post.postId}
+                                    deletePost={() => deletePost(post)}
+                                    updatePost={() => updatePost(post)}
+                                />
                             ))
                         }
                     </InfiniteScroll>

@@ -24,7 +24,8 @@ const MyNavbar = () => {
     const handleLogout = () => {
         doLogout(() => {
             setLogin(false)
-            nav("/login")
+            window.location.reload()
+            nav("/")
         })
     }
 

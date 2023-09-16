@@ -11,7 +11,7 @@ const AddPost = () => {
     // useState : Categories
     const [categories, setCategories] = useState([])
 
-    // useState : User
+    // useState :Image
     const [image, setImage] = useState(null)
 
     // useState : Jodit React
@@ -42,23 +42,18 @@ const AddPost = () => {
         console.log("image", image)
     }
 
-    // useEffect
+    // useEffect : On Page load
     useEffect(() => {
         getCategoriesHandler()
         post['userId'] = getCurrUser().id
     }, [])
 
-
-
     // Server Call : Getting all categories
     const getCategoriesHandler = () => {
         // Api Call
-        // axios.get(`${category_api}`).then(
-        loadAllCategories().then(
-            (response) => {
-                setCategories(response)
-                // console.log(response.data, categories)
-            }
+        loadAllCategories().then((response) => {
+            setCategories(response)
+        }
         ).catch((error) => {
             toast.error(error.response?.data, { position: "top-right" })
             console.log(error)
@@ -82,16 +77,17 @@ const AddPost = () => {
             return
         }
 
-        // Url generate
-        const url = `/api/user/${post.userId}/category/${post.categoryId}/posts`
-        // console.log("url ", url)
-
         // Server Call : Add Post
-        addPost(url, post).then(
+        addPost(post.userId, post.categoryId, post).then(
             (response) => {
                 console.log(response)
                 toast.success("Post Created Successfully", { position: "top-right" })
                 addImage(image, response.postId)
+                setPost({
+                    title: '',
+                    content: '',
+                    categoryId: 0
+                })
                 // window.location.reload()
             }
         ).catch((error) => {
@@ -130,7 +126,6 @@ const AddPost = () => {
                         {/* Post Content */}
                         <div className='my-3'>
                             <Label for='content'>Post Content</Label>
-                            {/* <Input type='textarea' placeholder='Enter here' id='content' className='rounded-0' style={{ height: '100px' }} /> */}
                             <JoditEditor
                                 ref={editor}
                                 value={post.content}
@@ -141,17 +136,14 @@ const AddPost = () => {
                         {/* Post Image */}
                         <div className="my-3">
                             <Label for='image'>Post Image</Label>
-                            <Input id='image' type='file' onChange={handleFileChange} />
+                            <Input id='image' type='file'
+                                onChange={handleFileChange} />
                         </div>
 
                         {/* Post Category */}
                         <div className='my-3'>
                             <Label for='category'>Post Category</Label>
                             <Input type='select' id='category' className='rounded-0' name='categoryId' onChange={handleChange} defaultValue={0}>
-                                {/* <option>Java</option>
-                                <option>Python</option>
-                                <option>Spring Boot</option>
-                                <option>Hibernate</option> */}
                                 <option disabled value={0}>--Select Category--</option>
                                 {
                                     categories.map((cat) => (
@@ -164,8 +156,8 @@ const AddPost = () => {
                         </div>
 
                         <Container className='text-center'>
-                            <Button color='primary' className='rounded-0' >Add Post</Button>
-                            <Button color='danger' type='reset' className='rounded-0 ms-2' >Reset</Button>
+                            <Button color='primary' >Add Post</Button>
+                            <Button color='danger' type='reset' className='ms-2' >Reset</Button>
                         </Container>
 
                     </Form>

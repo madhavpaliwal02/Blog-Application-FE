@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Base from '../../components/Base'
-import { Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle, Col, Container, Input, Row } from 'reactstrap'
+import { Button, Card, CardBody, CardText, Col, Container, Input, Row } from 'reactstrap'
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { getPostByPostId } from '../../services/post-service'
 import { BASE__URL } from '../../services/helper'
-import Comment from './Comment'
+import Comment from '../../components/Comment'
 import { saveComment } from '../../services/comment-service'
 import { isLoggedIn } from '../../auth'
 
@@ -114,13 +114,13 @@ const PostPage = () => {
                                         <CardText><h3>{post.title}</h3></CardText>
 
                                         {/* Image */}
-                                        <div className="image-container mt-2 shadow container text-center"
+                                        <div className="image-container mt-2  text-center"
 
                                         >
-                                            <img className='image-fluid'
+                                            <img className='image-fluid shadow'
                                                 src={BASE__URL + '/api/post/image/' + post.imageName}
                                                 alt=""
-                                                style={{ maxWidth: "50%" }}
+                                                style={{ maxWidth: "300px", maxHeight: "400px" }}
                                             />
                                         </div>
 

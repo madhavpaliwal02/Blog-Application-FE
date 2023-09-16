@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Base from '../../components/Base'
 import { Col, Container, Row } from 'reactstrap'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Dropdown from '../../components/Dropdown'
-import { loadPostsByCategory } from '../../services/post-service'
+import { deletePostById, loadPostsByCategory } from '../../services/post-service'
 import Post from '../../components/Post'
 import { toast } from 'react-toastify'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -12,6 +12,9 @@ const PostCategory = () => {
 
     // useParams
     const { categoryId } = useParams()
+
+    // useNavigate
+    const nav = useNavigate()
 
     // Use State : PostContent
     const [postContent, setPostContent] = useState({
@@ -26,6 +29,12 @@ const PostCategory = () => {
     // useState : Current Page
     const [currentPage, setCurrentPage] = useState(0)
 
+    // UseEffect : categoryId
+    useEffect(() => {
+        postContent.content = []
+        setCurrentPage(0)
+        loadPostsByCategories(categoryId)
+    }, [categoryId])
 
     // Load Categories by Title
     const loadPostsByCategories = (catId, pageNumber = 0, pageSize = 4) => {
@@ -51,16 +60,42 @@ const PostCategory = () => {
         })
     }
 
-    // UseEffect
+    // UseEffect : currentPage
     useEffect(() => {
-        console.log(categoryId)
+        console.log("currentPage")
         loadPostsByCategories(categoryId, currentPage)
-    }, [categoryId, currentPage])
+    }, [currentPage])
 
     // Handle Change Page Infinity
     const changedPageInfinity = () => {
         console.log("Page Changed")
         setCurrentPage(currentPage + 1)
+    }
+
+    // Delete Post
+    const deletePost = (post) => {
+
+        let del = window.confirm("Are you sure ?")
+        if (!del) {
+            return;
+        }
+
+        deletePostById(post.postId).then(
+            response => {
+                console.log("Deleted  ", response)
+                toast.success(response?.message, { position: "top-right" })
+                let updatedPosts = postContent.content.filter(p => p.postId != postContent.content.postId)
+                setPostContent({ ...postContent, content: updatedPosts })
+            }
+        ).catch(error => {
+            toast.error(error.response?.message, { position: "top-right" })
+        })
+    }
+
+    // Update Post
+    const updatePost = (post) => {
+        console.log(post)
+        nav("/user/update-post/" + post.postId)
     }
 
     return (
@@ -87,8 +122,11 @@ const PostCategory = () => {
                             }
                         >
                             {
-                                postContent.content.map((post) => (
-                                    <Post post={post} key={post.postId} />
+                                postContent.content.map((post, index) => (
+                                    <Post post={post} key={index}
+                                        deletePost={() => deletePost(post)}
+                                        updatePost={() => updatePost(post)}
+                                    />
                                 ))
                             }
                         </InfiniteScroll>

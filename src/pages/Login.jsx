@@ -33,7 +33,6 @@ const Login = () => {
         }
 
         // Server call : login
-        // axios.post('http://localhost:9191/auth/login', loginDetail).then(
         loginUser(loginDetail).then(
             (response) => {
                 console.log("Response ", response)
@@ -46,6 +45,7 @@ const Login = () => {
                 toast.success("Welcome ! " + response?.user.name, { position: "top-right" })
             }
         ).catch((error) => {
+            console.log("Error ", error)
             console.log("Error ", error.response?.message)
             toast.error(error.response?.message, { position: "top-right" })
         })
