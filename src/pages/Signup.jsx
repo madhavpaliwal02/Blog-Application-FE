@@ -45,7 +45,6 @@ const Signup = () => {
         e.preventDefault()
 
         // call server api
-        // axios.post(`${user_api}`, user).then(
         signupUser(user).then(
             (response) => {
                 console.log("response: ", response.data)
@@ -163,8 +162,6 @@ const Signup = () => {
                 </Row>
 
             </Container>
-
-
         </Base>
     )
 }

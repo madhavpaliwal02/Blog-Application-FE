@@ -19,7 +19,9 @@ import UpdatePost from './components/UpdatePost';
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer />
+      
+      
+      
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />

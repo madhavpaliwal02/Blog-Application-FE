@@ -24,3 +24,10 @@ export const getCurrUser = () => {
 export const getToken = () => {
     return (isLoggedIn) ? JSON.parse(localStorage.getItem("data"))?.token : false;
 }
+
+// Update user - upload image
+// export const updateUser = (data) => {
+//     doLogin(data, () => {
+//         return;
+//     })
+// }
