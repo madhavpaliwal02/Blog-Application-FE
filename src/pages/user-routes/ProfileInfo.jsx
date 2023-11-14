@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import Base from '../../components/Base'
 import { Button, Card, CardBody, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap'
 import photo from '../../image/default.jpg'
-import { getUser, uploadImage } from '../../services/user-service'
+import { uploadImage } from '../../services/user-service'
 import { toast } from 'react-toastify'
-import { doLogin, getCurrUser, getToken, updateUser } from '../../auth'
+import { doLogin, getCurrUser, getToken } from '../../auth'
 import { BASE__URL } from '../../services/helper'
+import { Link } from 'react-router-dom'
 
 const ProfileInfo = () => {
 
@@ -71,22 +72,14 @@ const ProfileInfo = () => {
                                 <CardBody>
                                     <Container className='text-center'>
                                         {/* Image */}
-                                        <div className="image-container mt-2  text-center"
-                                        >
-                                            <img className='image-fluid'
-                                                src={BASE__URL + '/api/users/image/' + user.image}
-                                                alt={photo}
-                                                style={{ maxWidth: '130px', maxHeight: '130px' }}
-                                            />
-                                        </div>
-                                        <div>
+                                        <div className="mt-2 shadow-sm text-center">
                                             <Form onSubmit={uploadUserImage} method='POST'>
-                                                <Label
-                                                    for='image'
-                                                    style={{ cursor: "pointer" }}
-                                                    className='shadow px-2 '
-                                                >
-                                                    Upload
+                                                <Label for='image'>
+                                                    <img className='image-fluid'
+                                                        src={BASE__URL + '/api/users/image/' + user.image}
+                                                        alt={photo}
+                                                        style={{ maxWidth: '120px', maxHeight: '110px', cursor: "pointer" }}
+                                                    />
                                                 </Label>
                                                 <Input
                                                     id='image'
@@ -95,14 +88,17 @@ const ProfileInfo = () => {
                                                     onChange={handleFileChange}
                                                 />
                                                 {image &&
-                                                    <Button type='submit' color='primary'>
-                                                        Upload
-                                                    </Button>
+                                                    <Container className='text-center'>
+                                                        <Button type='submit' color='primary'>
+                                                            Upload
+                                                        </Button>
+                                                    </Container>
                                                 }
                                             </Form>
                                         </div>
                                     </Container>
 
+                                    {/* Personal Details */}
                                     <Form>
                                         <FormGroup>
                                             <Label>Name</Label>
@@ -125,6 +121,12 @@ const ProfileInfo = () => {
                                                 disabled />
                                         </FormGroup>
                                     </Form>
+
+                                    <Container className='text-center'>
+                                        <Link to={'/user/update-user/' + user.id}
+                                            className='btn btn-primary'
+                                        >Update</Link>
+                                    </Container>
                                 </CardBody>
                             </Card>
                             : <h1>No user Logged In yet</h1>

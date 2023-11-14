@@ -1,3 +1,4 @@
+import { doLogin, getToken } from "../auth"
 import { myAxios, privateAxios } from "./helper"
 
 export const loginUser = async (loginDetail) => {
@@ -6,7 +7,7 @@ export const loginUser = async (loginDetail) => {
 }
 
 export const signupUser = async (userDetail) => {
-    const response = await myAxios.post('/api/users/', userDetail)
+    const response = await myAxios.post('/auth/register', userDetail)
     return response
 }
 
@@ -26,3 +27,12 @@ export const uploadImage = async (image, userId) => {
     })
     return response.data
 }
+
+export const updateUser = async (userId, user) => {
+    const response = await privateAxios.put('/api/users/' + userId, user)
+    doLogin(response.data, () => {
+        console.log("User updated !!!")
+    })
+    return response.data?.user
+}
+
