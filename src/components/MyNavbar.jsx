@@ -23,9 +23,11 @@ const MyNavbar = () => {
     // Handle Logout
     const handleLogout = () => {
         doLogout(() => {
-            setLogin(false)
-            window.location.reload()
-            nav("/")
+            setTimeout(() => {
+                setLogin(false)
+                window.location.reload()
+                nav("/")
+            }, 1000);
         })
     }
 
@@ -48,7 +50,7 @@ const MyNavbar = () => {
                 fixed=''
                 className='px-5'
             >
-                <NavbarBrand href="/">My Blogs</NavbarBrand>
+                <NavbarBrand href="/">BlogSphere</NavbarBrand>
                 <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
@@ -66,12 +68,13 @@ const MyNavbar = () => {
                             <DropdownToggle nav caret>
                                 More
                             </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem tag={ReactLink} to="/">Contact Us</DropdownItem>
+                            <DropdownMenu end>
+                                <DropdownItem tag={ReactLink} to="/contact">Contact Us</DropdownItem>
                                 <DropdownItem divider />
-                                <DropdownItem>Youtube</DropdownItem>
-                                <DropdownItem>Instagram</DropdownItem>
-                                <DropdownItem>LinkedIn</DropdownItem>
+                                <DropdownItem tag={ReactLink} to="https://www.linkedin.com/in/palak-porwal-4700b01a5/" target="_blank">Palak's LinkedIn</DropdownItem>
+                                <DropdownItem tag={ReactLink} to="/contact" target="_blank">Palak's Portfolio</DropdownItem>
+                                <DropdownItem tag={ReactLink} to="https://linkedin.com/in/madhav-paliwal-09a26a1a1" target="_blank">Madhav's LinkedIn</DropdownItem>
+                                <DropdownItem tag={ReactLink} to="https://madhav-tech-portfolio.netlify.app/" target="_blank">Madhav's Portfolio</DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
@@ -83,7 +86,7 @@ const MyNavbar = () => {
                                         <NavLink tag={ReactLink} to="/user/profile-info">Profile-Info</NavLink>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink tag={ReactLink} to="/user/dashboard">{user?.name}</NavLink>
+                                        <NavLink className='active' tag={ReactLink} to="/user/dashboard">{user?.name}</NavLink>
                                     </NavItem>
                                     <NavItem>
                                         <NavLink onClick={handleLogout}>Logout</NavLink>

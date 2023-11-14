@@ -59,7 +59,9 @@ const PostPage = () => {
             console.log("error", error)
             toast.error(error.response?.message, { position: "top-right" })
         })
-        window.location.reload()
+        setTimeout(() => {
+            window.location.reload()
+        }, 1500);
     }
 
     // Get the post By postId

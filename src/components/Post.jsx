@@ -12,14 +12,12 @@ const Post = ({ post = { title: "This is default Title", content: "This is defau
     const loggedIn = isLoggedIn()
 
     return (
-        <Card className='border-0 shadow-sm'>
+        <Card className='border-0 shadow-sm mt-1'>
             <CardBody>
                 <h4>{post.title}</h4>
                 <CardText
-                    dangerouslySetInnerHTML={{ __html: post.content.substring(0, 50) + "..." }}
-                >
-                    {/* {post.content.substring(0, 50)}... */}
-                </CardText>
+                    dangerouslySetInnerHTML={{ __html: post.content.substring(0, 40) + "..." }}
+                />
 
                 <Link to={'/post/' + post.postId} className='btn btn-primary'>Read More</Link>
 

@@ -47,9 +47,11 @@ const Signup = () => {
         // call server api
         signupUser(user).then(
             (response) => {
-                console.log("response: ", response.data)
                 toast.success("User registered with userId: " + response.data?.id, { position: "top-right" })
-                nav("/login")
+                console.log("response: ", response.data)
+                setTimeout(() => {
+                    nav("/login")
+                }, 2500);
             })
             .catch((err) => {
                 console.log("something went wrong... Error: ", err)
@@ -58,14 +60,9 @@ const Signup = () => {
                     isError: true
                 })
                 toast.error(err.response?.data?.message, { position: "top-right" })
-                // console.log(err.response?.data?.message)
+                console.log(err.response?.data?.message)
             })
     }
-
-    useEffect(() => {
-        // console.log("user: ", user)
-        toast.success("Hello Palak", { position: "top-right" })
-    }, [Signup])
 
     return (
         <Base>

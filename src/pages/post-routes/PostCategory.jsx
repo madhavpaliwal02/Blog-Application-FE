@@ -33,7 +33,9 @@ const PostCategory = () => {
     useEffect(() => {
         postContent.content = []
         setCurrentPage(0)
-        loadPostsByCategories(categoryId)
+        setTimeout(() => {
+            loadPostsByCategories(categoryId)
+        }, 500);
     }, [categoryId])
 
     // Load Categories by Title

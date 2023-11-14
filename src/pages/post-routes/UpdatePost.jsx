@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import Base from './Base'
+import Base from '../../components/Base'
 import { Button, Card, CardBody, Container, Form, Input, Label } from 'reactstrap'
 import JoditEditor from 'jodit-react'
-import { loadAllCategories } from '../services/category-service'
-import { getPostByPostId, postImageService, updatePostById } from '../services/post-service'
+// import { loadAllCategories } from '../../services/category-service'
+import { loadAllCategories } from '../../services/category-service'
+import { getPostByPostId, postImageService, updatePostById } from '../../services/post-service'
 import { toast } from 'react-toastify'
 
-const UpdatePost = ({ state }) => {
+const UpdatePost = () => {
 
     // useParam
     const { postId } = useParams()
@@ -105,7 +106,9 @@ const UpdatePost = ({ state }) => {
                     addImage(image, response.postId)
                     toast.success("Image Updated Sucessfully", { position: "top-right" })
                 }
-                nav('/user/dashboard')
+                setTimeout(() => {
+                    nav('/user/dashboard')
+                }, 2500);
             }
         ).catch((error) => {
             toast.error(error.response?.message, { position: "top-right" })

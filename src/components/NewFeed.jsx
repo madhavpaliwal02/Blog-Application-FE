@@ -40,7 +40,8 @@ const NewFeed = () => {
                     totalElements: response.totalElements,
                     pageSize: response.pageSize,
                     pageNumber: response.pageNumber,
-                    lastPage: response.lastPage
+                    lastPage: response.lastPage,
+              //      ...response
                 })
                 // window.scroll(0, 0)
             }
@@ -52,7 +53,9 @@ const NewFeed = () => {
 
     // UseEffect
     useEffect(() => {
-        loadAllPosts(currentPage)
+        setTimeout(() => {
+            loadAllPosts(currentPage)
+        }, 800);
         console.log("Post content :", postContent.content)
     }, [currentPage])
 

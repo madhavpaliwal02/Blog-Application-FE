@@ -40,14 +40,16 @@ const Login = () => {
                 doLogin(response, () => {
                     console.log("Data is saved in local storage")
                     console.log("Api Fetched", response)
-                    nav("/user/dashboard")
+                    toast.success("Successfully Login ! " + response?.user.name, { position: "top-right" })
+                    setTimeout(() => {
+                        nav("/user/dashboard")
+                    }, 2500);
                 })
-                toast.success("Welcome ! " + response?.user.name, { position: "top-right" })
             }
         ).catch((error) => {
             console.log("Error ", error)
             console.log("Error ", error.response?.message)
-            toast.error(error.response?.message, { position: "top-right" })
+            toast.error(error.response?.data?.message, { position: "top-right" })
         })
     }
 
