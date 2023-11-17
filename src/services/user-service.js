@@ -1,4 +1,4 @@
-import { doLogin, getToken } from "../auth"
+import { doLogin } from "../auth"
 import { myAxios, privateAxios } from "./helper"
 
 export const loginUser = async (loginDetail) => {
@@ -34,5 +34,10 @@ export const updateUser = async (userId, user) => {
         console.log("User updated !!!")
     })
     return response.data?.user
+}
+
+export const getAllUsers = async () => {
+    const response = await myAxios.get('/api/users/')
+    return response.data
 }
 

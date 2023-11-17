@@ -5,6 +5,7 @@ import {
     UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 import { doLogout, getCurrUser, isLoggedIn } from '../auth';
+import mylogo from "../image/logo.jpg"
 
 const MyNavbar = () => {
 
@@ -17,6 +18,10 @@ const MyNavbar = () => {
     // useState : User
     const [user, setUser] = useState(undefined)
 
+    // useState : Admin
+    const [admin, setAdmin] = useState(sessionStorage.getItem("admin") !== null)
+    // console.log(admin)
+
     // useNavigate
     const nav = useNavigate()
 
@@ -25,8 +30,8 @@ const MyNavbar = () => {
         doLogout(() => {
             setTimeout(() => {
                 setLogin(false)
-                window.location.reload()
                 nav("/")
+                window.location.reload()
             }, 1000);
         })
     }
@@ -35,9 +40,6 @@ const MyNavbar = () => {
     useEffect(() => {
         setLogin(isLoggedIn())
         setUser(getCurrUser())
-        console.log("user:::", user)
-        // setLogin(false)
-        // setLogin(true)
     }, [login])
 
 
@@ -50,7 +52,9 @@ const MyNavbar = () => {
                 fixed=''
                 className='px-5'
             >
-                <NavbarBrand href="/">BlogSphere</NavbarBrand>
+                <NavbarBrand href="/">
+                    <img src={mylogo} alt="" width="150px" />
+                </NavbarBrand>
                 <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
@@ -72,7 +76,7 @@ const MyNavbar = () => {
                                 <DropdownItem tag={ReactLink} to="/contact">Contact Us</DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem tag={ReactLink} to="https://www.linkedin.com/in/palak-porwal-4700b01a5/" target="_blank">Palak's LinkedIn</DropdownItem>
-                                <DropdownItem tag={ReactLink} to="/contact" target="_blank">Palak's Portfolio</DropdownItem>
+                                <DropdownItem tag={ReactLink} to="https://palakporwal.github.io/Personal-Portfolio/" target="_blank">Palak's Portfolio</DropdownItem>
                                 <DropdownItem tag={ReactLink} to="https://linkedin.com/in/madhav-paliwal-09a26a1a1" target="_blank">Madhav's LinkedIn</DropdownItem>
                                 <DropdownItem tag={ReactLink} to="https://madhav-tech-portfolio.netlify.app/" target="_blank">Madhav's Portfolio</DropdownItem>
                             </DropdownMenu>
@@ -80,22 +84,29 @@ const MyNavbar = () => {
                     </Nav>
                     <Nav navbar>
                         {
-                            login && (
+                            (login || admin) ?
                                 <>
-                                    <NavItem>
-                                        <NavLink tag={ReactLink} to="/user/profile-info">Profile-Info</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink className='active' tag={ReactLink} to="/user/dashboard">{user?.name}</NavLink>
-                                    </NavItem>
+                                    {(admin ?
+                                        <>
+                                            <NavItem>
+                                                <NavLink tag={ReactLink} to="/admin">Admin</NavLink>
+                                            </NavItem>
+                                        </>
+                                        :
+                                        <>
+                                            <NavItem>
+                                                <NavLink tag={ReactLink} to="/user/profile-info">Profile-Info</NavLink>
+                                            </NavItem>
+                                            <NavItem>
+                                                <NavLink tag={ReactLink} to="/user/dashboard">{user?.name}</NavLink>
+                                            </NavItem>
+                                        </>
+                                    )}
                                     <NavItem>
                                         <NavLink onClick={handleLogout}>Logout</NavLink>
                                     </NavItem>
                                 </>
-                            )
-                        }
-                        {
-                            !login && (
+                                :
                                 <>
                                     <NavItem>
                                         <NavLink tag={ReactLink} to="/login">Login</NavLink>
@@ -104,7 +115,6 @@ const MyNavbar = () => {
                                         <NavLink tag={ReactLink} to="/signup">SignUp</NavLink>
                                     </NavItem>
                                 </>
-                            )
                         }
                     </Nav>
                 </Collapse>
