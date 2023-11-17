@@ -83,12 +83,9 @@ const AddPost = () => {
                 console.log(response)
                 toast.success("Post Created Successfully", { position: "top-right" })
                 addImage(image, response.postId)
-                setPost({
-                    title: '',
-                    content: '',
-                    categoryId: 0
-                })
-                // window.location.reload()
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2500);
             }
         ).catch((error) => {
             console.log(error)

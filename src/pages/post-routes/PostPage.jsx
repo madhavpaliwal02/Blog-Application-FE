@@ -122,7 +122,7 @@ const PostPage = () => {
                                             <img className='image-fluid shadow'
                                                 src={BASE__URL + '/api/post/image/' + post.imageName}
                                                 alt=""
-                                                style={{ maxWidth: "300px", maxHeight: "400px" }}
+                                                style={{ maxWidth: "250px", maxHeight: "350px" }}
                                             />
                                         </div>
 
@@ -174,7 +174,7 @@ const PostPage = () => {
                             {
                                 post && (
                                     post.comments.map((cmt) => (
-                                        <Comment user={post.user.name} content={cmt.content} key={cmt.id} />
+                                        <Comment content={cmt.content} key={cmt.id} />
                                     ))
                                 )
                             }

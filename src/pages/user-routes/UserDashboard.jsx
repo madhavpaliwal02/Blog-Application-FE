@@ -60,6 +60,7 @@ const UserDashboard = () => {
     // useEffect
     useEffect(() => {
         loadUsersPost();
+        // toast.success("Welcome ! " + user.name + " to the Dashboard.", { position: "top-right" })
     }, [])
 
 
@@ -68,18 +69,23 @@ const UserDashboard = () => {
         <Base>
             <AddPost />
 
-            <Container className='mt-4'>
+            <Container className='mt-4 mb-2'>
                 {/* New Feeds Header */}
                 <h1>Blogs Count : ({posts.length})</h1>
 
-                {isLoggedIn() &&
+                {isLoggedIn() && posts.length > 0 ?
                     posts.map((post, index) => (
                         <Post post={post} key={index}
                             deletePost={() => deletePost(post)}
                             updatePost={() => updatePost(post)}
                         />
                     ))
+                    :
+                    (
+                        <h1>User has 0 posts !!</h1>
+                    )
                 }
+
 
             </Container>
         </Base>

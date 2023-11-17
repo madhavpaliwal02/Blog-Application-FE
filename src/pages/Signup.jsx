@@ -66,7 +66,7 @@ const Signup = () => {
 
     return (
         <Base>
-            <Container>
+            <Container className='mb-2'>
 
                 <Row>
                     <Col sm={{ size: 6, offset: 3 }} >

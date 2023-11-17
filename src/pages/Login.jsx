@@ -32,6 +32,21 @@ const Login = () => {
             return
         }
 
+        if ((loginDetail.email.includes("admin") && loginDetail.email !== "admin@gmail.com")
+            || (loginDetail.password.includes("admin") && loginDetail.password !== "admin123")) {
+            toast.error("Email or password is incorrect !!")
+            return
+        }
+
+        if (loginDetail.email === "admin@gmail.com" && loginDetail.password === "admin123") {
+            toast.success("Admin Logged In !!!", { position: "top-right" })
+            setTimeout(() => {
+                sessionStorage.setItem("admin", "admin")
+                nav("/admin")
+            }, 2000)
+            return
+        }
+
         // Server call : login
         loginUser(loginDetail).then(
             (response) => {
@@ -73,7 +88,7 @@ const Login = () => {
                                         <Input
                                             id='email'
                                             name='email'
-                                            type='text'
+                                            type='email'
                                             placeholder='Enter here'
                                             onChange={handleChange}
                                         />

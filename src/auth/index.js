@@ -12,6 +12,7 @@ export const doLogin = (data, next) => {
 // doLogout
 export const doLogout = (next) => {
     sessionStorage.removeItem("data")
+    sessionStorage.removeItem("admin")
     next();
 }
 

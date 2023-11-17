@@ -1,9 +1,7 @@
 import React from 'react'
-import { Container } from 'reactstrap'
 
 const Footer = () => {
     return (
-        // <Container className=''>
         <div className="container-fluid text-center pb-1"
             style={{ background: "#2f2f2f", color: "#ffffff", position: "sticky" }}
         >
@@ -12,7 +10,6 @@ const Footer = () => {
                 <i>  Copyright Infringement 2008</i>
             </p>
         </div>
-        // </Container>
     )
 }
 
