@@ -15,6 +15,8 @@ import UpdateUser from './pages/user-routes/UpdateUser';
 import ContactUs from './pages/ContactUs';
 import { ToastContainer } from 'react-toastify';
 import UpdatePost from './pages/post-routes/UpdatePost';
+import Admin from './pages/admin-routes/Admin';
+import UpdateCategory from './pages/admin-routes/UpdateCategory';
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/post/:postId' element={<PostPage />} />
         <Route path='/category/:categoryId' element={<PostCategory />} />
+        <Route path='/admin' element={<Admin />} />
+        <Route path='/update-cat/:categoryId' element={<UpdateCategory />} />
 
 
         <Route path='/user' element={<PrivateRoute />}>
