@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Base from '../../components/Base'
 import { Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, FormText, Input, Label, Row } from 'reactstrap'
-import { getUser, reLogin, updateUser } from '../../services/user-service'
+import { getUser, updateUser } from '../../services/user-service'
 import { toast } from 'react-toastify'
 
 const UpdateUser = () => {

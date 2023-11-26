@@ -43,6 +43,14 @@ const Signup = () => {
     // Handle Submit
     const handleSubmit = (e) => {
         e.preventDefault()
+        
+        if (user.password.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{4,10}$/, {
+            message:
+                "Password must be at least one uppercase, one lowercase, one special character and one number.",
+        })) {
+            window.alert("Please check the password Criteria")
+            return
+        }
 
         // call server api
         signupUser(user).then(

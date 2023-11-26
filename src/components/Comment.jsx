@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardBody, CardHeader, CardText, Col, Container, Row } from 'reactstrap'
+import { Card, CardBody, CardText, Container } from 'reactstrap'
 
 const Comment = ({ content }) => {
     return (

@@ -67,8 +67,11 @@ const MyNavbar = () => {
                         <NavItem>
                             <NavLink tag={ReactLink} to="/services">Services</NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink tag={ReactLink} to="/contact">Contact Us</NavLink>
+                        </NavItem>
 
-                        <UncontrolledDropdown nav inNavbar>
+                        {/* <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
                                 More
                             </DropdownToggle>
@@ -80,7 +83,7 @@ const MyNavbar = () => {
                                 <DropdownItem tag={ReactLink} to="https://linkedin.com/in/madhav-paliwal-09a26a1a1" target="_blank">Madhav's LinkedIn</DropdownItem>
                                 <DropdownItem tag={ReactLink} to="https://madhav-tech-portfolio.netlify.app/" target="_blank">Madhav's Portfolio</DropdownItem>
                             </DropdownMenu>
-                        </UncontrolledDropdown>
+                        </UncontrolledDropdown> */}
                     </Nav>
                     <Nav navbar>
                         {
@@ -95,10 +98,10 @@ const MyNavbar = () => {
                                         :
                                         <>
                                             <NavItem>
-                                                <NavLink tag={ReactLink} to="/user/profile-info">Profile-Info</NavLink>
+                                                <NavLink tag={ReactLink} to="/user/profile-info">{user?.name}</NavLink>
                                             </NavItem>
                                             <NavItem>
-                                                <NavLink tag={ReactLink} to="/user/dashboard">{user?.name}</NavLink>
+                                                <NavLink tag={ReactLink} to="/user/dashboard">Home</NavLink>
                                             </NavItem>
                                         </>
                                     )}

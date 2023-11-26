@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react'
-import { Card, CardBody, CardHeader, Col, Row } from 'reactstrap'
+import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap'
 import Base from '../components/Base'
-// import photo from '../image/default.jpg'
 import mad from '../image/mad.png'
 import pal from '../image/pal - Copy.jpg'
 import { TypeAnimation } from 'react-type-animation'
 import ScrollReveal from 'scrollreveal'
+import { FaLinkedinIn } from "react-icons/fa";
+import { MdWeb } from "react-icons/md";
+import { NavLink } from 'react-router-dom'
 
 const ContactUs = () => {
 
@@ -16,7 +18,6 @@ const ContactUs = () => {
         lineHeight: "22px",
         textAlign: "left",
         padding: "0"
-        // margin: "0"
     }
 
     const second = {
@@ -26,7 +27,6 @@ const ContactUs = () => {
         marginTop: "2px",
         textIndent: "30px",
         padding: "0",
-        // margin: "0"
     }
 
     const name = {
@@ -36,7 +36,6 @@ const ContactUs = () => {
         fontStyle: "italic",
         lineHeight: "20px",
         padding: "0",
-        // margin: "0"
     }
 
     const refs = useRef()
@@ -81,7 +80,21 @@ const ContactUs = () => {
 
                             <p style={second}>"I am eager to apply my knowledge and learn from experienced professionals in the field while contributing to exciting projects and embracing new challenges."</p>
 
-                            <p style={name}>~ Palak Porwal</p>
+                            <div className='d-flex justify-content-between align-items-center'>
+                                <div className='d-flex justify-content-start'>
+                                    <Button size='sm' color='dark' outline >
+                                        <NavLink to="https://www.linkedin.com/in/palak-porwal-4700b01a5/" target="_blank">
+                                            <FaLinkedinIn />
+                                        </NavLink>
+                                    </Button>
+                                    <Button size='sm' color='dark' outline className='ms-3'>
+                                        <NavLink to="https://palakporwal.github.io/Personal-Portfolio/" target="_blank" >
+                                            <MdWeb />
+                                        </NavLink>
+                                    </Button>
+                                </div>
+                                <p style={name}>~ Palak Porwal</p>
+                            </div>
                         </CardBody>
                     </Card>
                 </Col>
@@ -109,7 +122,21 @@ const ContactUs = () => {
 
                             <p style={second}>"I am eager to apply my skills in Java and React to real-world projects, contribute to innovative solutions, and continue growing as a software engineer."</p>
 
-                            <p style={name}>~ Madhav Paliwal</p>
+                            <div className='d-flex justify-content-between align-items-end'>
+                                <div className='d-flex justify-content-start '>
+                                    <Button color='dark' size='sm' outline>
+                                        <NavLink to="htts://linkedin.com/in/madhav-paliwal-09a26a1a1" target="_blank">
+                                            <FaLinkedinIn />
+                                        </NavLink>
+                                    </Button>
+                                    <Button color='dark' size='sm' outline className='ms-3'>
+                                        <NavLink to="https://madhav-tech-portfolio.netlify.app/" target="_blank" >
+                                            <MdWeb />
+                                        </NavLink>
+                                    </Button>
+                                </div>
+                                <p style={name}>~ Madhav Paliwal</p>
+                            </div>
                         </CardBody>
                     </Card>
                 </Col>

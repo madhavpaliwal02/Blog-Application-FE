@@ -35,7 +35,7 @@ const UserList = () => {
                     {
                         (users.response?.length > 0) ?
                             users.response?.map((user) => (
-                                <FormGroup>
+                                <FormGroup className='shadow-sm p-1'>
                                     <Label>{user.id}. {user.name}</Label>
                                     <Input disabled bsSize='sm'
                                         value={user.email} />

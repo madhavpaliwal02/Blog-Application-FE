@@ -41,9 +41,7 @@ const NewFeed = () => {
                     pageSize: response.pageSize,
                     pageNumber: response.pageNumber,
                     lastPage: response.lastPage,
-              //      ...response
                 })
-                // window.scroll(0, 0)
             }
         ).catch((error) => {
             console.log("Error ", error)
@@ -55,7 +53,7 @@ const NewFeed = () => {
     useEffect(() => {
         setTimeout(() => {
             loadAllPosts(currentPage)
-        }, 800);
+        }, 400);
         console.log("Post content :", postContent.content)
     }, [currentPage])
 
@@ -93,9 +91,9 @@ const NewFeed = () => {
     return (
         <div className='container-fluid'>
             <Row>
-                <Col md={{ size: 12 }}>
+                <Col md={{ size: 8, offset: 2 }}>
                     {/* New Feeds Header */}
-                    <h1>Blogs Count : ({postContent?.totalElements})</h1>
+                    <h2>Blogs Count : ({postContent?.totalElements})</h2>
 
                     {/* Infinite Scroll */}
                     <InfiniteScroll

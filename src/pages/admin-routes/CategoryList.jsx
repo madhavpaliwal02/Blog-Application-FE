@@ -57,9 +57,9 @@ const CategoryList = () => {
                                             <Button onClick={() => updateCategory(cat)} color="warning" size='sm' className='my-0' outline >
                                                 Update
                                             </Button>
-                                            <Button onClick={handleDelete} color="danger" size='sm' className='my-0 ms-2' outline >
+                                            {/* <Button onClick={handleDelete} color="danger" size='sm' className='my-0 ms-2' outline >
                                                 Delete
-                                            </Button>
+                                            </Button> */}
                                         </div>
                                     </Label>
                                     <Input disabled bsSize='sm'
