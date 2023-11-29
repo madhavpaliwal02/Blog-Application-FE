@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../auth";
 
-export const BASE__URL = "http://18.220.155.97:9191"
+export const BASE__URL = "http://3.21.158.18:9191"
 
 export const myAxios = axios.create({
     baseURL: BASE__URL
