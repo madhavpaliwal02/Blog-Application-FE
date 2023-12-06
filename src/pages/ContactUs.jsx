@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap'
 import Base from '../components/Base'
 import mad from '../image/mad.png'
-import pal from '../image/pal - Copy.jpg'
+import pal from '../image/Pallu.png'
 import { TypeAnimation } from 'react-type-animation'
 import ScrollReveal from 'scrollreveal'
 import { FaLinkedinIn } from "react-icons/fa";
@@ -61,7 +61,7 @@ const ContactUs = () => {
                     <Card className='shadow' ref={left}>
                         {/* Image & Name */}
                         <CardHeader>
-                            <img src={pal} alt="" width="70px" />
+                            <img src={pal} alt="" width="130px" />
                             <h2 className='mt-2'>
                                 <TypeAnimation
                                     sequence={[
