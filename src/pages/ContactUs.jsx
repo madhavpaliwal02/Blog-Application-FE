@@ -125,7 +125,7 @@ const ContactUs = () => {
                             <div className='d-flex justify-content-between align-items-end'>
                                 <div className='d-flex justify-content-start '>
                                     <Button color='dark' size='sm' outline>
-                                        <NavLink to="htts://linkedin.com/in/madhav-paliwal-09a26a1a1" target="_blank">
+                                        <NavLink to="https://linkedin.com/in/madhav-paliwal-09a26a1a1" target="_blank">
                                             <FaLinkedinIn />
                                         </NavLink>
                                     </Button>
