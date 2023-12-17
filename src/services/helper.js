@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../auth";
 
-export const BASE__URL = "https://appychip.in"
+export const BASE__URL = "https://3.12.164.56:9191"
 
 export const myAxios = axios.create({
     baseURL: BASE__URL

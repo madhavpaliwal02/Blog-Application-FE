@@ -116,7 +116,8 @@ const PostPage = () => {
                                         <CardText><h3>{post.title}</h3></CardText>
 
                                         {/* Image */}
-                                        <div className="image-container mt-2  text-center"
+                                        { (post.imageName !== "default.png") &&
+                                            <div className="image-container mt-2  text-center"
 
                                         >
                                             <img className='image-fluid shadow'
@@ -124,7 +125,7 @@ const PostPage = () => {
                                                 alt=""
                                                 style={{ maxWidth: "250px", maxHeight: "350px" }}
                                             />
-                                        </div>
+                                        </div> }
 
                                         {/* Content */}
                                         <CardText className='mt-4 mb-4' dangerouslySetInnerHTML={{ __html: post.content }} />
